@@ -8,13 +8,10 @@
  * @return {number} - a positive integer
  */
 var reverseBits = function(n) {
-    let result = 0;
-    let count = 32;
-    while(count --){
-        result *= 2;
-        result += n & 1;
-        n = n >> 1;
+    n = n.toString(2).split("");
+    while(n.length <32){
+        n.unshift(0)
     }
-    return result;
+    return parseInt(n.reverse().join(""),2)
 };
 
