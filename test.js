@@ -1,15 +1,13 @@
-var http = require('http');
+let exec = require('child_process').exec;
+let option = process.argv.splice(2);
+let message = option.length ? option : "add";
+var command =  `git add . & git commit -m ${message} & git push origin master`;
 
-http.createServer(function (request, response) {
-
-    // 发送 HTTP 头部 
-    // HTTP 状态值: 200 : OK
-    // 内容类型: text/plain
-    response.writeHead(200, {'Content-Type': 'text/plain'});
-
-    // 发送响应数据 "Hello World"
-    response.end('Hello World\n');
-}).listen(8888);
-
-// 终端打印如下信息
-console.log('Server running at http://127.0.0.1:8888/');
+exec(command,(error, stdout, stderr) =>{
+    if (error) {
+        console.error(`执行的错误: ${error}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+})
